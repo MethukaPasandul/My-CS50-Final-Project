@@ -199,13 +199,13 @@ These user friendly features improve the overall user experience by providing ac
 
 ## Screenshots
 ### Home Page
-![home page](static\images\screenshots\HomePage.png)
+![home page](static/images/screenshots/HomePage.png)
 ### Library Page
-![library page](static\images\screenshots\UserLibrary.png)
+![library page](static/images/screenshots/UserLibrary.png)
 ### Detailed View
-![detailed view](static\images\screenshots\DetailedView.png)
+![detailed view](static/images/screenshots/DetailedView.png)
 ### Advanced Filters
-![advanced filters](static\images\screenshots\AdvancedFilters.png)
+![advanced filters](static/images/screenshots/AdvancedFilters.png)
 
 
 

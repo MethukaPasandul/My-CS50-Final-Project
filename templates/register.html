@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+<div class="register-container">
+    <div class="register-card instructions">
+        <h1>Instructions</h1>
+        <ul>
+            <li>Username must be unique</li>
+            <li>Username should not contain any special characters</li>
+            <li>Password must be over 5 digits</li>
+            <li>Password must contain special characters</li>
+            <li>Password must contain at least one uppercase letter</li>
+        </ul>
+    </div>
+    <div class="register-card">
+        <h1>Create Your Account</h1>
+        <form action="/register" method="post">
+            <div class="input-group">
+                <input required type="text" name="username" autocomplete="off" class="input">
+                <label class="user-label">Username</label>
+            </div>
+            <div class="input-group">
+                <input required type="password" name="password" class="input">
+                <label class="user-label">Password</label>
+            </div>
+            <div class="input-group">
+                <input required type="password" name="confirmation" class="input">
+                <label class="user-label">Confirm Password</label>
+            </div>
+            <button class="button" type="submit">Register</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Delete Account
+{% endblock %}
+
+{% block main %}
+<div class="delete-container">
+    <div class="delete-card">
+        <h1>Delete Account</h1>
+        <form action="/deleteaccount" method="post">
+            <div class="input-group">
+                <input required type="password" name="verify_password" class="input">
+                <label class="user-label">Verify Password</label>
+            </div>
+            <button type="submit" class="button">Delete Account</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

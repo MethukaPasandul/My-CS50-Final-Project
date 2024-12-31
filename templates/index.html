@@ -1,0 +1,132 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+<header>
+    <div class="d-flex align-items-center">
+        <h1>Advanced Search</h1>
+        <button class="button" type="button" data-bs-toggle="collapse" data-bs-target="#searchForm" aria-expanded="false" aria-controls="searchForm">
+            <i class="bi bi-funnel"></i> ↓
+        </button>
+    </div>
+    <div class="collapse" id="searchForm">
+        <div class="card card-body">
+            <form method="get">
+                <div class="mb-3">
+                    <input type="text" name="name" class="form-control" placeholder="Search for a game..." value="{{ request.args.get('name', '') }}">
+                </div>
+                <div class="mb-3">
+                    <label for="platformSelect" class="form-label">Platform:</label>
+                    <select id="platformSelect" name="platform" class="select-filter">
+                        <option value="">All Platforms</option>
+                        <option value="pc" {% if request.args.get('platform') == 'pc' %}selected{% endif %}>PC</option>
+                        <option value="browser" {% if request.args.get('platform') == 'browser' %}selected{% endif %}>Browser</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="categorySelect" class="form-label">Category:</label>
+                    <select id="categorySelect" name="category" class="select-filter">
+                        <option value="">All Categories</option>
+                        <option value="strategy" {% if request.args.get('category') == 'strategy' %}selected{% endif %}>Strategy</option>
+                        <option value="shooter" {% if request.args.get('category') == 'shooter' %}selected{% endif %}>Shooter</option>
+                        <option value="racing" {% if request.args.get('category') == 'racing' %}selected{% endif %}>Racing</option>
+                        <option value="sports" {% if request.args.get('category') == 'sports' %}selected{% endif %}>Sports</option>
+                        <option value="sandbox" {% if request.args.get('category') == 'sandbox' %}selected{% endif %}>Sandbox</option>
+                        <option value="open-world" {% if request.args.get('category') == 'open-world' %}selected{% endif %}>Open-World</option>
+                        <option value="survival" {% if request.args.get('category') == 'survival' %}selected{% endif %}>Survival</option>
+                        <option value="action" {% if request.args.get('category') == 'action' %}selected{% endif %}>Action</option>
+                        <option value="horror" {% if request.args.get('category') == 'horror' %}selected{% endif %}>Horror</option>
+                        <option value="anime" {% if request.args.get('category') == 'anime' %}selected{% endif %}>Anime</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="sortSelect" class="form-label">Sort By:</label>
+                    <select id="sortSelect" name="sort" class="select-filter">
+                        <option value="">Sort By</option>
+                        <option value="release-date" {% if request.args.get('sort') == 'release-date' %}selected{% endif %}>Release Date</option>
+                        <option value="popularity" {% if request.args.get('sort') == 'popularity' %}selected{% endif %}>Popularity</option>
+                        <option value="alphabetical" {% if request.args.get('sort') == 'alphabetical' %}selected{% endif %}>Alphabetical</option>
+                        <option value="relevance" {% if request.args.get('sort') == 'relevance' %}selected{% endif %}>Relevance</option>
+                    </select>
+                </div>
+                <button type="submit" class="button" role="button">Search</button>
+            </form>
+        </div>
+    </div>
+  </header>
+  <nav id="pagination">
+    <ul>
+        {% if current_page > 1 %}
+            <li>
+                <a href="?page={{ current_page - 1 }}&name={{ query }}&platform={{ platform }}&category={{ category }}&sort={{ sort }}">
+                    Previous
+                </a>
+            </li>
+        {% endif %}
+        <li class="active">
+            <a href="?page={{ current_page }}&name={{ query }}&platform={{ platform }}&category={{ category }}&sort={{ sort }}">
+                {{ current_page }}
+            </a>
+        </li>
+        {% if current_page < total_pages %}
+            <li>
+                <a href="?page={{ current_page + 1 }}&name={{ query }}&platform={{ platform }}&category={{ category }}&sort={{ sort }}">
+                    Next
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+  <section id="gamesList">
+    {% if games %}
+        <div class="gameResults">
+            {% for game in games %}
+  <div class="gameCard">
+    <a href="{{ url_for('index', game_id=game.id) }}">  <img src="{{ game.thumbnail }}" alt="{{ game.title }}">
+      <h3>{{ game.title }}</h3>
+    </a>
+    <form method="post" action="/like">
+        <input type="hidden" name="game_id" value="{{ game.id }}">
+        <button type="submit" class="like-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01z"/>
+            </svg>
+        </button>
+    </form>
+    <a href="{{ game.game_url }}" target="_blank">Get this game</a>
+    </div>
+{% endfor %}
+        </div>
+    {% else %}
+        <p>No games were found!.</p>
+    {% endif %}
+</section>
+<nav id="pagination">
+    <ul>
+        {% if current_page > 1 %}
+            <li>
+                <a href="?page={{ current_page - 1 }}&name={{ query }}&platform={{ platform }}&category={{ category }}&sort={{ sort }}">
+                    Previous
+                </a>
+            </li>
+        {% endif %}
+        <li class="active">
+            <a href="?page={{ current_page }}&name={{ query }}&platform={{ platform }}&category={{ category }}&sort={{ sort }}">
+                {{ current_page }}
+            </a>
+        </li>
+        {% if current_page < total_pages %}
+            <li>
+                <a href="?page={{ current_page + 1 }}&name={{ query }}&platform={{ platform }}&category={{ category }}&sort={{ sort }}">
+                    Next
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+
+
+{% endblock %}

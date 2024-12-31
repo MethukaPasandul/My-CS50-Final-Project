@@ -1,0 +1,5 @@
+cs50
+Flask
+flask-session
+Werkzeug
+requests

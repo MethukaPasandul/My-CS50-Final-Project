@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Detailed Info
+{% endblock %}
+
+{% block main %}
+  <h2>{{ game.title }}</h2>
+  <div class="game-details">
+    <div class="details-container">
+      <div class="thumbnail">
+        <img src="{{ game.thumbnail }}" alt="{{ game.title }} thumbnail">
+      </div>
+      <div class="info">
+        <p><b>Genre:</b> {{ game.genre }}</p>
+        <p><b>Platform:</b> {{ game.platform }}</p>
+        <p><b>Publisher:</b> {{ game.publisher }}</p>
+        <p><b>Developer:</b> {{ game.developer }}</p>
+        <p><b>Release Date:</b> {{ game.release_date }}</p>
+      </div>
+    </div>
+    <p><b>Description:</b></p>
+    <p>{{ game.description }}</p>
+    {% if game.screenshots %}
+      <h3>Screenshots</h3>
+      <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          {% for screenshot in game.screenshots %}
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ loop.index0 }}"
+              class="{% if loop.index0 == 0 %}active{% endif %}"
+              aria-current="{% if loop.index0 == 0 %}true{% endif %}"
+              aria-label="Slide {{ loop.index }}"></button>
+          {% endfor %}
+        </div>
+        <div class="carousel-inner">
+          {% for screenshot in game.screenshots %}
+            <div class="carousel-item {% if loop.index0 == 0 %}active{% endif %}">
+              <img src="{{ screenshot.image }}" class="d-block w-100" alt="Screenshot {{ loop.index }}">
+            </div>
+          {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    {% endif %}
+    {% if game.minimum_system_requirements %}
+      <h3>Minimum System Requirements</h3>
+      <ul>
+        <li><b>OS:</b> {{ game.minimum_system_requirements.os }}</li>
+        <li><b>Processor:</b> {{ game.minimum_system_requirements.processor }}</li>
+        <li><b>Memory:</b> {{ game.minimum_system_requirements.memory }}</li>
+        <li><b>Graphics:</b> {{ game.minimum_system_requirements.graphics }}</li>
+        <li><b>Storage:</b> {{ game.minimum_system_requirements.storage }}</li>
+      </ul>
+    {% endif %}
+  </div>
+{% endblock %}

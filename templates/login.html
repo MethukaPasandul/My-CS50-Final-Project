@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block main %}
+<div class="main-container">
+    <div class="carousel-container">
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="static/images/carousels/1.jpg" class="d-block w-100">
+                </div>
+                <div class="carousel-item">
+                    <img src="static/images/carousels/2.jpg" class="d-block w-100">
+                </div>
+                <div class="carousel-item">
+                    <img src="static/images/carousels/3.jpg" class="d-block w-100">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="login-container">
+        <div class="login-card">
+            <h1>Welcome Back!</h1>
+            <form action="/login" method="post">
+                <div class="input-group">
+                    <input required type="text" name="username" autocomplete="off" class="input">
+                    <label class="user-label">Username</label>
+                </div>
+                <div class="input-group">
+                    <input required type="password" name="password" class="input">
+                    <label class="user-label">Password</label>
+                </div>
+                <button class="button" type="submit">Log In</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

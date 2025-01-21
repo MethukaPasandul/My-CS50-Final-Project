@@ -1,4 +1,5 @@
 cs50
+gunicorn 
 Flask
 flask-session
 Werkzeug

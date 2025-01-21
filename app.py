@@ -14,6 +14,12 @@ API_URL = "https://www.freetogame.com/api/games"
 # Configure application
 app = Flask(__name__)
 
+#edited here for Render
+if __name__ == "__main__":
+    from os import environ
+    app.run(host="0.0.0.0", port=int(environ.get("PORT", 5000)))
+
+
 # Configure session to use filesystem (instead of signed cookies)
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
